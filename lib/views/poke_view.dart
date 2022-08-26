@@ -19,6 +19,7 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -42,9 +43,6 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
         children: [
           Container(
             decoration: BoxDecoration(
-              // image: const DecorationImage(
-              //   image: AssetImage(PokeConsts.blackPokeballOpacity),
-              // ),
               gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -57,10 +55,11 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
           ),
           Positioned(
             top: 120,
-              child: Image.asset(
-            PokeConsts.blackPokeballOpacity,
-            scale: 1.2,
-          )),
+            child: Image.asset(
+              PokeConsts.blackPokeballOpacity,
+              scale: 1.2,
+            ),
+          ),
           Positioned(
             top: 60,
             child: Text(
@@ -197,24 +196,24 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 10),
+          padding: const EdgeInsets.only(left: 20, top: 10),
           child: Row(
-            children: const [
-              Text('Specie',
+            children: [
+              const Text('Specie',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              SizedBox(
+              const SizedBox(
                 height: 18,
                 width: 192,
               ),
               Text(
-                'Seed',
-                style: TextStyle(fontSize: 16),
+                getSpecieByLanguage('en'),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 10),
+          padding: const EdgeInsets.only(left: 20, top: 10),
           child: Row(
             children: [
               const Text('Weight',
@@ -231,7 +230,7 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 10),
+          padding: const EdgeInsets.only(left: 20, top: 10),
           child: Row(
             children: [
               const Text('Height',
@@ -248,7 +247,7 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 10),
+          padding: const EdgeInsets.only(left: 20, top: 10),
           child: Row(
             children: [
               const Text('Ability',
@@ -265,7 +264,7 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30, top: 8),
+          padding: const EdgeInsets.only(left: 20, top: 8),
           child: Row(
             children: [
               const Text('Gender',
@@ -283,6 +282,21 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
         )
       ],
     );
+  }
+
+  String getSpecieByLanguage(String language){
+    final specieNamesList = widget.pokemon.specie;
+    String specieName;
+
+    for(var specie in specieNamesList){
+      if (specie.language == language) {
+        // remove as últimas 8 letras -> ' Pokemon'
+        specieName = specie.specie.substring(0, specie.specie.length-8);
+        return specieName;
+      }
+    }
+    // se não encontrar, retornar a espécie em inglês
+    return specieNamesList[8].specie;
   }
 
   Column showPokedataAtributes() {

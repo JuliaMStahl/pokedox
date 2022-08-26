@@ -11,6 +11,7 @@ class Pokemon {
   final List<PokemonStatData> stats;
   final List<Type> types;
   final int gender;
+  final List<Genera> specie;
 
   const Pokemon(
       {required this.id,
@@ -21,7 +22,8 @@ class Pokemon {
       required this.stats,
       required this.abilities,
       required this.types,
-      required this.gender});
+      required this.gender,
+      required this.specie});
 
   Pokemon.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -38,7 +40,10 @@ class Pokemon {
         types = (json['types'] as List)
             .map((e) => Type.fromJson(e))
             .toList(),
-        gender = json['gender_rate'];
+        gender = json['gender_rate'],
+        specie = (json['genera'] as List)
+            .map((e) => Genera.fromJson(e))
+            .toList();
 
   @override
   String toString() {
@@ -53,9 +58,28 @@ class Pokemon {
     types.forEach((element) {
       print('Type name: ${element.type}');
     });
+    specie.forEach((element) {
+      print('Genera: ${element.specie}');
+    });
 
     return 'Pokemon{id: $id, name: $name, weight: $weight, height $height, gender: $gender';
   }
+}
+
+class Genera {
+  final String specie;
+  final String language;
+
+  Genera(this.specie, this.language);
+
+  @override
+  String toString() {
+    return 'Genera{specie: $specie, language: $language}';
+  }
+
+  Genera.fromJson (Map<String, dynamic> json) :
+      specie = json['genus'],
+      language = json['language']['name'];
 }
 
 class Type {

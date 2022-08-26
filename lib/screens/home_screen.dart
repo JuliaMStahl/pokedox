@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextField(
                   controller: _textController,
                   decoration:
-                      InputDecoration(hintText: 'Find Pokemon by name or id'),
+                      const InputDecoration(hintText: 'Find Pokemon by name or id'),
                 ),
               ),
               Padding(
@@ -65,9 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           _textController.text.toLowerCase().trim();
                       print(textInfo);
 
-                      final Pokemon? poke = findPokemonLocal(textInfo);
+                      final Pokemon? poke = _findPokemonLocal(textInfo);
 
                       if (poke != null) {
+                        print(poke);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => PokeView(poke)));
                       } else {
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             });
                       }
                     },
-                    child: Text('Find!')),
+                    child: const Text('Find!')),
               ),
               Visibility(
                 visible: !isLoading,
@@ -107,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  findPokemonLocal(String textInfo) {
+  _findPokemonLocal(String textInfo) {
     final id = int.tryParse(textInfo);
     if (id != null) return pokemons[id - 1];
 
@@ -149,7 +150,7 @@ class FailureDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          child: Text('Ok'),
+          child: const Text('Ok'),
           onPressed: () => Navigator.pop(context),
         )
       ],
