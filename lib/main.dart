@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pokedox/components/pokemon_card.dart';
+import 'package:pokedox/http/webclient.dart';
+import 'package:pokedox/modules/pokemon.dart';
+import 'package:pokedox/screens/home_screen.dart';
+import 'package:pokedox/views/find_pokemon_view.dart';
 import 'package:pokedox/views/home_view.dart';
-import 'package:pokedox/views/start_screen.dart';
+import 'package:pokedox/views/pokemon_view.dart';
+import 'package:pokedox/screens/start_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +15,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,8 +23,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HomeView(),
+      // home: PokemonView(),
+      // home: Center(
+      //   child: PokemonCard(),
+      // ),
+       // home: FindPokemonView(),
+      home: HomeScreen(),
     );
   }
 }

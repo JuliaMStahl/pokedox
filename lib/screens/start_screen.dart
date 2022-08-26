@@ -8,7 +8,7 @@ class StartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: PokeConsts.darkBlueBackground,
       body: Center(
-        child: Image.asset('assets/images/pokemon_logo.png'),
+        child: Image.asset(PokeConsts.logoPokemon),
       ),
     );
   }
