@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:pokedox/modules/pokemon.dart';
+import 'package:pokedox/modules/pokemon/pokemon.dart';
 import 'interceptors/logging_interceptor.dart';
 
 final Client client = InterceptedClient.build(
@@ -35,7 +35,7 @@ class PokemonWebClient {
 
   static Future<List<Pokemon>> findAll() async {
     final List<Pokemon> pokemons = [];
-    for(int i = 1; i<21; i++){
+    for(int i = 1; i<31; i++){
       try{
         pokemons.add(await findPokemon('$i'));
       }

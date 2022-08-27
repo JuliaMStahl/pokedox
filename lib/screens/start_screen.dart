@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedox/consts.dart';
+import 'package:pokedox/modules/pokemon/consts.dart';
 
 class StartScreen extends StatelessWidget {
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedox/common/functions.dart';
-import 'package:pokedox/consts.dart';
-import 'package:pokedox/modules/pokemon.dart';
+import 'package:pokedox/modules/pokemon/consts.dart';
+import 'package:pokedox/modules/pokemon/pokemon.dart';
 import 'package:pokedox/extentions/string_extention.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -179,8 +179,8 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
               height: 54,
               width: 347,
               child: Text(
-                'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
-                style: TextStyle(fontSize: 15),
+                 formatDescription(widget.pokemon.description.descriptionText),
+                style: const TextStyle(fontSize: 15),
               )),
         ),
         Padding(
@@ -284,6 +284,10 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
     );
   }
 
+  String formatDescription(String desc) {
+    return desc.replaceAll("\n", ' ');
+  }
+
   String getSpecieByLanguage(String language){
     final specieNamesList = widget.pokemon.specie;
     String specieName;
@@ -314,7 +318,7 @@ class _PokeViewState extends State<PokeView> with TickerProviderStateMixin {
               ),
               Text(
                 widget.pokemon.abilities.last.ability.capitalize(),
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           ),

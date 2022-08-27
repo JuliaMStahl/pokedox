@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedox/consts.dart';
+import 'package:pokedox/modules/pokemon/consts.dart';
 
 class Pokemon {
   final int id;
@@ -12,6 +12,7 @@ class Pokemon {
   final List<Type> types;
   final int gender;
   final List<Genera> specie;
+  final Description description;
 
   const Pokemon(
       {required this.id,
@@ -23,7 +24,8 @@ class Pokemon {
       required this.abilities,
       required this.types,
       required this.gender,
-      required this.specie});
+      required this.specie,
+      required this.description});
 
   Pokemon.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -43,27 +45,19 @@ class Pokemon {
         gender = json['gender_rate'],
         specie = (json['genera'] as List)
             .map((e) => Genera.fromJson(e))
-            .toList();
+            .toList(),
+        description = (json['flavor_text_entries'] as List)
+            .map((e) => Description.fromJson(e))
+            .toList().first;
 
-  @override
-  String toString() {
-    print('CAIU AQUI');
-    stats.forEach((element) {
-      print(
-          'Stat name : ${element.statName.name} && Stat value : ${element.baseStat}');
-    });
-    abilities.forEach((element) {
-      print('Ability name: ${element.ability}');
-    });
-    types.forEach((element) {
-      print('Type name: ${element.type}');
-    });
-    specie.forEach((element) {
-      print('Genera: ${element.specie}');
-    });
+}
 
-    return 'Pokemon{id: $id, name: $name, weight: $weight, height $height, gender: $gender';
-  }
+class Description {
+  final String descriptionText;
+
+  Description(this.descriptionText);
+
+  Description.fromJson(Map<String, dynamic> json) : descriptionText = json['flavor_text'];
 }
 
 class Genera {
@@ -71,11 +65,6 @@ class Genera {
   final String language;
 
   Genera(this.specie, this.language);
-
-  @override
-  String toString() {
-    return 'Genera{specie: $specie, language: $language}';
-  }
 
   Genera.fromJson (Map<String, dynamic> json) :
       specie = json['genus'],
@@ -86,11 +75,6 @@ class Type {
   final String type;
 
   Type({required this.type});
-
-  @override
-  String toString() {
-    return 'Type{type: $type}';
-  }
 
   Type.fromJson(Map<String, dynamic> json) : type = json['type']['name'];
 
@@ -202,11 +186,6 @@ class Ability {
 
   Ability({required this.ability});
 
-  @override
-  String toString() {
-    return 'Ability{ability: $ability}';
-  }
-
   Ability.fromJson(Map<String, dynamic> json)
       : ability = json['ability']['name'];
 }
@@ -215,11 +194,6 @@ class PokemonStatName {
   final String name;
 
   PokemonStatName({required this.name});
-
-  @override
-  String toString() {
-    return 'PokemonStatName{name: $name}';
-  }
 
   PokemonStatName.fromJson(Map<String, dynamic> json) : name = json['name'];
 }
@@ -230,11 +204,6 @@ class PokemonStatData {
 
   PokemonStatData({required this.baseStat, required this.statName});
 
-  @override
-  String toString() {
-    return 'PokemonStatData{baseStat: $baseStat, statName: $statName}';
-  }
-
   PokemonStatData.fromJson(Map<String, dynamic> json)
       : baseStat = json['base_stat'],
         statName = PokemonStatName.fromJson(json['stat']);
@@ -244,11 +213,6 @@ class PokemonName {
   final String name;
 
   PokemonName(this.name);
-
-  @override
-  String toString() {
-    return 'PokemonName{name: $name}';
-  }
 
   PokemonName.fromJson(Map<String, dynamic> json) : name = json['results']['name'];
 }

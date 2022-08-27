@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokedox/components/pokemon_card.dart';
-import 'package:pokedox/consts.dart';
+import 'package:pokedox/modules/pokemon/consts.dart';
 import 'package:pokedox/http/webclient.dart';
-import 'package:pokedox/modules/pokemon.dart';
-import 'package:pokedox/views/poke_view.dart';
+import 'package:pokedox/modules/pokemon/pokemon.dart';
+import 'package:pokedox/screens/pokemon_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -53,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 15, left: 30, right: 30),
                 child: TextField(
                   controller: _textController,
-                  decoration:
-                      const InputDecoration(hintText: 'Find Pokemon by name or id'),
+                  decoration: const InputDecoration(
+                      hintText: 'Find Pokemon by name or id'),
                 ),
               ),
               Padding(
@@ -63,22 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () async {
                       final String textInfo =
                           _textController.text.toLowerCase().trim();
-                      print(textInfo);
-
                       final Pokemon? poke = _findPokemonLocal(textInfo);
-
                       if (poke != null) {
-                        print(poke);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => PokeView(poke)));
                       } else {
-                        print('Não achou o pokemon');
                         showDialog(
-                            context: context,
-                            builder: (contextDialog) {
-                              return FailureDialog(
-                                  'Failed looking for Pokemon');
-                            });
+                          context: context,
+                          builder: (contextDialog) {
+                            return FailureDialog('Failed looking for Pokemon');
+                          },
+                        );
                       }
                     },
                     child: const Text('Find!')),
@@ -130,7 +125,10 @@ class FailureDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Ops...', style: TextStyle(color: Colors.red),),
+      title: const Text(
+        'Ops...',
+        style: TextStyle(color: Colors.red),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

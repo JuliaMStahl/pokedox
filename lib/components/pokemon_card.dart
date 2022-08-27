@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pokedox/common/functions.dart';
-import 'package:pokedox/consts.dart';
+import 'package:pokedox/modules/pokemon/consts.dart';
 import 'package:pokedox/extentions/string_extention.dart';
-import 'package:pokedox/modules/pokemon.dart';
+import 'package:pokedox/modules/pokemon/pokemon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pokedox/views/poke_view.dart';
+import 'package:pokedox/screens/pokemon_screen.dart';
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
